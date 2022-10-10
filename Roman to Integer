@@ -1,0 +1,24 @@
+class Solution {
+    public int romanToInt(String s) {
+        int intNum = 0;
+        
+        for(int i = 0; i < s.length()-1;i++){
+            intNum += getIntNumber(s.charAt(i), s.charAt(i+1));//getting the integer number by using this call
+        }
+        intNum += getIntNumber(s.charAt(s.length()-1), ' ');
+        return intNum;
+    }
+    
+    private int getIntNumber(int current, int next){
+        return switch(current){//using this switch to segegrate the roman numbers into integers
+            case 'I' -> next == 'V' || next == 'X'? -1 : +1;
+            case 'V' -> +5;
+            case 'X' -> next == 'L' || next == 'C'? -10 : +10;//Doing subtractions for the numbers 1, 10, 100
+            case 'L' -> +50;
+            case 'C' -> next == 'D' || next == 'M'? -100 : +100;
+            case 'M' -> +1000;
+            case 'D' -> +500;
+            default -> 0;
+        };
+    }
+}
